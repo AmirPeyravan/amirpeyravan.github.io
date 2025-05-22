@@ -1,1 +1,667 @@
 
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه شخصی امیرحسین پیروان</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+
+<!-- پیش‌نمایش -->
+<div class="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-circle"></div>
+    </div>
+</div>
+
+
+<!-- نشانگر ماوس سفارشی -->
+<div class="mouse-cursor cursor-outer"></div>
+<div class="mouse-cursor cursor-inner"></div>
+
+
+<!-- دکمه اسکرول به بالا -->
+<div class="scroll-to-top">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+
+<!-- دکمه تعویض تم -->
+<div class="theme-toggle">
+    <i class="fas fa-moon"></i>
+</div>
+
+
+<!-- Navigation -->
+<nav class="container mx-auto px-6 py-6 flex justify-between items-center">
+    <div class="flex space-x-6 space-x-reverse">
+        <a href="/" class="nav-link text-gray-300 hover:text-white text-lg transition-all">خانه</a>
+        <a href="#about" class="nav-link text-gray-300 hover:text-white text-lg transition-all">درباره من</a>
+        <a href="#skills" class="nav-link text-gray-300 hover:text-white text-lg transition-all">مهارت‌ها</a>
+        <a href="#portfolio" class="nav-link text-gray-300 hover:text-white text-lg transition-all">نمونه کارها</a>
+        <a href="#contact" class="nav-link text-gray-300 hover:text-white text-lg transition-all">تماس</a>
+    </div>
+    <div class="text-3xl font-bold">
+        <span class="gradient-text">amirpeyravan</span>
+    </div>
+</nav>
+
+
+<!-- هدر با انیمیشن -->
+<header id="home" class="relative h-screen flex items-center justify-center overflow-hidden" aria-labelledby="home-heading">
+    <div class="animated-bg">
+        <div class="animated-bg-shape shape1"></div>
+        <div class="animated-bg-shape shape2"></div>
+        <div class="animated-bg-shape shape3"></div>
+    </div>
+
+    <div class="grid-overlay">
+        <div class="floating-element top-20 left-24 bg-purple-600 bg-opacity-70 text-white px-6 py-3 rounded-lg shadow-lg">
+            <div class="flex items-center space-x-2 space-x-reverse">
+                <i class="fas fa-project-diagram text-yellow-400 text-2xl"></i>
+                <span class="text-lg font-semibold">Interested in a challenge</span>
+            </div>
+        </div>
+
+        <div class="floating-element bottom-20 right-24 bg-yellow-500 bg-opacity-70 text-white px-6 py-3 rounded-lg shadow-lg">
+            <div class="flex items-center space-x-2 space-x-reverse">
+                <i class="fas fa-history text-purple-300 text-2xl"></i>
+                <span class="text-lg font-semibold">Coding...</span>
+            </div>
+        </div>
+
+        <div class="floating-element top-40 right-40 bg-sky-600 bg-opacity-70 text-white px-6 py-3 rounded-lg shadow-lg">
+            <div class="flex items-center space-x-2 space-x-reverse">
+                <i class="fas fa-users text-yellow-300 text-2xl"></i>
+                <span class="text-lg font-semibold">Teamwork</span>
+            </div>
+        </div>
+
+        <div class="relative z-10 text-center">
+            <div class="circle-image mb-8 mx-auto w-48 h-48 rounded-full overflow-hidden">
+                <div class="glow-effect"></div>
+                <img src="{{ asset('storage/images/me0.jpg') }}" alt="عکس پروفایل امیرحسین پیروان، توسعه‌دهنده وب و طراح UI/UX" class="w-full h-full object-cover" loading="lazy">
+            </div>
+            <h1 id="home-heading" class="text-5xl md:text-7xl font-bold mb-3 gradient-text">امیرحسین پیروان</h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-300">
+                <span class="typed-text"></span>
+                <span class="cursor">|</span>
+            </p>
+            <nav class="flex justify-center space-x-4 space-x-reverse mb-8" aria-label="لینک‌های شبکه‌های اجتماعی">
+                <a href="https://www.linkedin.com/in/amirpeyravan" class="social-icon text-gray-300 hover:text-white h-12 w-12 bg-gray-800 rounded-full flex items-center justify-center transition-all" rel="nofollow" aria-label="پروفایل لینکدین امیرحسین پیروان">
+                    <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+                <a href="https://www.x.com/amirpeyravan" class="social-icon text-gray-300 hover:text-white h-12 w-12 bg-gray-800 rounded-full flex items-center justify-center transition-all" rel="nofollow" aria-label="پروفایل ایکس امیرحسین پیروان">
+                    <i class="fab fa-twitter text-xl"></i>
+                </a>
+                <a href="https://www.instagram.com/amirpeyravan" class="social-icon text-gray-300 hover:text-white h-12 w-12 bg-gray-800 rounded-full flex items-center justify-center transition-all" rel="nofollow" aria-label="پروفایل اینستاگرام امیرحسین پیروان">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="https://github.com/amirpeyravan" class="social-icon text-gray-300 hover:text-white h-12 w-12 bg-gray-800 rounded-full flex items-center justify-center transition-all" rel="nofollow" aria-label="پروفایل گیت‌هاب امیرحسین پیروان">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="https://www.reddit.com/user/amirpeyravan" class="social-icon text-gray-300 hover:text-white h-12 w-12 bg-gray-800 rounded-full flex items-center justify-center transition-all" rel="nofollow" aria-label="پروفایل ردیت امیرحسین پیروان">
+                    <i class="fab fa-reddit text-xl"></i>
+                </a>
+            </nav>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#contact" class="animated-btn px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-700 text-white rounded-full font-semibold hover:shadow-lg hover:from-purple-700 hover:to-indigo-800 transition-all">
+                    <i class="fas fa-envelope ml-2"></i>تماس با من
+                </a>
+                <a href="#" class="animated-btn px-8 py-4 bg-gray-800 text-white rounded-full font-semibold hover:bg-gray-700 hover:shadow-lg transition-all">
+                    <i class="fas fa-download ml-2"></i>دانلود رزومه
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schema Markup برای پروفایل و شبکه‌های اجتماعی -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "امیرحسین پیروان",
+            "jobTitle": "توسعه‌دهنده وب و طراح UI/UX",
+            "image": "{{ asset('storage/images/me0.jpg') }}",
+        "url": "https://yourdomain.com",
+        "sameAs": [
+            "https://www.linkedin.com/in/amirpeyravan",
+            "https://www.x.com/amirpeyravan",
+            "https://www.instagram.com/amirpeyravan",
+            "https://github.com/amirpeyravan",
+            "https://www.reddit.com/user/amirpeyravan"
+        ]
+    }
+    </script>
+</header>
+
+
+<!-- بخش درباره من -->
+<section id="about" class="py-24 relative">
+    <div class="container mx-auto px-6">
+        <h2 class="text-5xl font-bold text-center mb-16 section-heading">درباره <span class="gradient-text">من</span></h2>
+
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="w-full md:w-1/3 flex justify-center">
+                <div class="relative w-64 h-64">
+                    <div class="absolute -top-4 -right-4 w-full h-full border-2 border-purple-500 rounded-xl z-0"></div>
+                    <div class="absolute -bottom-4 -left-4 w-full h-full border-2 border-yellow-500 rounded-xl z-0"></div>
+                    <div class="circle-image w-full h-full rounded-xl overflow-hidden relative z-10">
+                        <img src="storage/images/me1.jpeg" alt="عکس شخصی" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full md:w-2/3">
+                <div class="glass-card p-8">
+                    <div class="flex flex-wrap gap-4 mb-6">
+                        <span class="px-4 py-2 bg-purple-600 bg-opacity-20 text-purple-400 rounded-full text-sm">توسعه‌دهنده Full Stack</span>
+                        <span class="px-4 py-2 bg-yellow-600 bg-opacity-20 text-yellow-400 rounded-full text-sm">PHP | laravel | C# | .net</span>
+                        <span class="px-4 py-2 bg-blue-600 bg-opacity-20 text-blue-400 rounded-full text-sm">طراح UI/UX</span>
+                        <span class="px-4 py-2 bg-green-600 bg-opacity-20 text-green-400 rounded-full text-sm">دانشجو مهندسی کامپیوتر</span>
+                    </div>
+
+                    <p class="mb-4 text-lg leading-relaxed text-gray-300">
+
+                        من امیرحسین پروان، دانشجوی مهندسی کامپیوتر و برنامه‌نویس علاقه‌مند به توسعه وب و یادگیری ماشین هستم. با سابقه کار در PHP و آشنایی با مفاهیم شی‌ءگرایی و معماری MVC، مسیرم را با تمرکز بر فریم‌ورک Laravel و زبان‌های مکملی مثل JavaScript و Python ادامه می‌دهم. هدف من ساخت محصولات کاربردی، رشد تخصصی، و افتخارآفرینی برای خانواده‌ام است.
+
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <i class="fas fa-users text-yellow-400"></i>
+                            <span>برنامه نویس خودآموز</span>
+                        </div>
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <i class="fas fa-chart-line text-yellow-400"></i>
+                            <span>مدیریت پروژه های شخصی</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center p-4 bg-yellow-500 bg-opacity-10 rounded-lg border border-yellow-500 border-opacity-20 mt-6">
+                        <i class="fas fa-quote-right text-yellow-500 text-3xl ml-4"></i>
+                        <p class="text-gray-300 italic">"باور دارم که با ترکیب خلاقیت و تکنولوژی می‌توان راه‌حل‌های نوآورانه برای چالش‌های پیچیده ارائه داد."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- باکس‌های اطلاعات -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+            <div class="glass-card p-6 text-center">
+                <div class="w-16 h-16 bg-purple-600 bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-laptop-code text-purple-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">تخصص‌های فنی</h3>
+                <p class="text-gray-400">React، Node.js، Laravel، GraphQL، MongoDB، PostgreSQL، AWS</p>
+            </div>
+
+            <div class="glass-card p-6 text-center">
+                <div class="w-16 h-16 bg-yellow-600 bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-award text-yellow-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">دستاوردها</h3>
+                <p class="text-gray-400">
+                    دستاورد مهمی تا به حال نداشتم - ولی خواهم داشت
+                </p>
+            </div>
+
+            <div class="glass-card p-6 text-center">
+                <div class="w-16 h-16 bg-blue-600 bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-graduation-cap text-blue-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">آموزش</h3>
+                <p class="text-gray-400">
+                    در زمینه آموزش فعالیتی ندارم
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- بخش مهارت‌ها -->
+<section id="skills" class="py-24 bg-gray-900 bg-opacity-30 relative" aria-labelledby="skills-heading">
+    <div class="container mx-auto px-6">
+        <h1 id="skills-heading" class="text-5xl font-bold text-center mb-16 section-heading">مهارت‌های <span class="gradient-text">حرفه‌ای</span></h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <article class="glass-card p-8">
+                <h2 class="text-2xl font-bold mb-8 gradient-text">مهارت‌های برنامه‌نویسی</h2>
+
+                <div class="skill-item mb-6">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="text-xl">HTML & CSS</h3>
+                        <span class="text-yellow-400">95%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar" style="width: 95%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item mb-6">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="text-xl">JavaScript</h3>
+                        <span class="text-yellow-400">50%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar" style="width: 90%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item mb-6">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="text-xl">C#</h3>
+                        <span class="text-yellow-400">85%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar" style="width: 85%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item mb-6">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="text-xl">PHP</h3>
+                        <span class="text-yellow-400">80%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar" style="width: 80%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item mb-6">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="text-xl">Laravel</h3>
+                        <span class="text-yellow-400">85%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar" style="width: 85%"></div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8">
+                <h2 class="text-2xl font-bold mb-8 gradient-text">مهارت‌های طراحی</h2>
+
+                <div class="skill-item mb-6">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="text-xl">UI/UX Design</h3>
+                        <span class="text-yellow-400">90%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar" style="width: 90%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item mb-6">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="text-xl">Adobe XD</h3>
+                        <span class="text-yellow-400">85%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar" style="width: 85%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item mb-6">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="text-xl">Figma</h3>
+                        <span class="text-yellow-400">80%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar" style="width: 80%"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item mb-6">
+                    <div class="flex justify-between mb-2">
+                        <h3 class="text-xl">Photoshop</h3>
+                        <span class="text-yellow-400">75%</span>
+                    </div>
+                    <div class="skill-bar-bg">
+                        <div class="skill-bar" style="width: 75%"></div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- کارت‌های مهارت‌های دیگر -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+            <article class="glass-card p-6">
+                <div class="w-16 h-16 bg-purple-600 bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-server text-purple-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-center">Back-End</h3>
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Node.js</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Express</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Laravel</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">PHP</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Python</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Django</span>
+                </div>
+            </article>
+
+            <article class="glass-card p-6">
+                <div class="w-16 h-16 bg-yellow-600 bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-paint-brush text-yellow-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-center">Front-End</h3>
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">React</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Vue.js</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Angular</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Tailwind CSS</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Bootstrap</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">SCSS</span>
+                </div>
+            </article>
+
+            <article class="glass-card p-6">
+                <div class="w-16 h-16 bg-blue-600 bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-database text-blue-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-center">Database</h3>
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">MySQL</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">PostgreSQL</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">MongoDB</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Redis</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Firebase</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">GraphQL</span>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- بخش نمونه کارها -->
+<section id="portfolio" class="py-24 relative" aria-labelledby="portfolio-heading">
+    <div class="container mx-auto px-6">
+        <h2 id="portfolio-heading" class="text-5xl font-bold text-center mb-16 section-heading">نمونه <span class="gradient-text">کارها</span></h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- نمونه کار 1 -->
+            <article class="portfolio-card glass-card overflow-hidden h-80">
+                <img src="/storage/project-image/project01.jpg" alt="فروشگاه آنلاین زرین ساخته شده با React و Node.js" class="w-full h-full object-cover" loading="lazy">
+                <div class="overlay">
+                    <h3 class="text-xl font-bold mb-2">فروشگاه آنلاین زرین</h3>
+                    <p class="text-gray-300 mb-4">طراحی و پیاده‌سازی فروشگاه آنلاین با React و Node.js</p>
+                    <div class="flex space-x-2 space-x-reverse mb-3">
+                        <span class="px-2 py-1 bg-purple-600 bg-opacity-30 text-purple-300 rounded-md text-xs">React</span>
+                        <span class="px-2 py-1 bg-green-600 bg-opacity-30 text-green-300 rounded-md text-xs">Node.js</span>
+                        <span class="px-2 py-1 bg-blue-600 bg-opacity-30 text-blue-300 rounded-md text-xs">MongoDB</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- نمونه کار 2 -->
+            <article class="portfolio-card glass-card overflow-hidden h-80">
+                <img src="/storage/project-image/project02.jpg" alt="اپلیکیشن مدیریت پروژه نوین با Laravel و Vue.js" class="w-full h-full object-cover" loading="lazy">
+                <div class="overlay">
+                    <h3 class="text-xl font-bold mb-2">اپلیکیشن مدیریت پروژه نوین</h3>
+                    <p class="text-gray-300 mb-4">طراحی و توسعه سیستم مدیریت پروژه سازمانی</p>
+                    <div class="flex space-x-2 space-x-reverse mb-3">
+                        <span class="px-2 py-1 bg-purple-600 bg-opacity-30 text-purple-300 rounded-md text-xs">Laravel</span>
+                        <span class="px-2 py-1 bg-green-600 bg-opacity-30 text-green-300 rounded-md text-xs">Vue.js</span>
+                        <span class="px-2 py-1 bg-blue-600 bg-opacity-30 text-blue-300 rounded-md text-xs">PostgreSQL</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- نمونه کار 3 -->
+            <article class="portfolio-card glass-card overflow-hidden h-80">
+                <img src="/storage/project-image/project03.jpg" alt="پلتفرم آموزش آنلاین دانا با React و Django" class="w-full h-full object-cover" loading="lazy">
+                <div class="overlay">
+                    <h3 class="text-xl font-bold mb-2">پلتفرم آموزش آنلاین دانا</h3>
+                    <p class="text-gray-300 mb-4">طراحی و توسعه سیستم آموزش آنلاین با قابلیت برگزاری کلاس مجازی</p>
+                    <div class="flex space-x-2 space-x-reverse mb-3">
+                        <span class="px-2 py-1 bg-purple-600 bg-opacity-30 text-purple-300 rounded-md text-xs">React</span>
+                        <span class="px-2 py-1 bg-green-600 bg-opacity-30 text-green-300 rounded-md text-xs">Django</span>
+                        <span class="px-2 py-1 bg-blue-600 bg-opacity-30 text-blue-300 rounded-md text-xs">WebRTC</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- نمونه کار 4 -->
+            <article class="portfolio-card glass-card overflow-hidden h-80">
+                <img src="/storage/project-image/project04.jpg" alt="اپلیکیشن موبایل سلامت یار با React Native و Firebase" class="w-full h-full object-cover" loading="lazy">
+                <div class="overlay">
+                    <h3 class="text-xl font-bold mb-2">اپلیکیشن موبایل سلامت یار</h3>
+                    <p class="text-gray-300 mb-4">توسعه اپلیکیشن موبایل پایش سلامت و رژیم غذایی</p>
+                    <div class="flex space-x-2 space-x-reverse mb-3">
+                        <span class="px-2 py-1 bg-purple-600 bg-opacity-30 text-purple-300 rounded-md text-xs">React Native</span>
+                        <span class="px-2 py-1 bg-green-600 bg-opacity-30 text-green-300 rounded-md text-xs">Express</span>
+                        <span class="px-2 py-1 bg-blue-600 bg-opacity-30 text-blue-300 rounded-md text-xs">Firebase</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- نمونه کار 5 -->
+            <article class="portfolio-card glass-card overflow-hidden h-80">
+                <img src="/storage/project-image/project05.jpg" alt="داشبورد مدیریت هوشمند ساختمان با Angular و Node.js" class="w-full h-full object-cover" loading="lazy">
+                <div class="overlay">
+                    <h3 class="text-xl font-bold mb-2">داشبورد مدیریت هوشمند ساختمان</h3>
+                    <p class="text-gray-300 mb-4">طراحی و توسعه سیستم مدیریت هوشمند ساختمان با اینترنت اشیا</p>
+                    <div class="flex space-x-2 space-x-reverse mb-3">
+                        <span class="px-2 py-1 bg-purple-600 bg-opacity-30 text-purple-300 rounded-md text-xs">Angular</span>
+                        <span class="px-2 py-1 bg-green-600 bg-opacity-30 text-green-300 rounded-md text-xs">Node.js</span>
+                        <span class="px-2 py-1 bg-blue-600 bg-opacity-30 text-blue-300 rounded-md text-xs">MQTT</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- نمونه کار 6 -->
+            <article class="portfolio-card glass-card overflow-hidden h-80">
+                <img src="/storage/project-image/project06.jpg" alt="پلتفرم مدیریت محتوای پارسی با PHP و MySQL" class="w-full h-full object-cover" loading="lazy">
+                <div class="overlay">
+                    <h3 class="text-xl font-bold mb-2">پلتفرم مدیریت محتوای پارسی</h3>
+                    <p class="text-gray-300 mb-4">طراحی و توسعه سیستم مدیریت محتوای فارسی با قابلیت سفارشی‌سازی</p>
+                    <div class="flex space-x-2 space-x-reverse mb-3">
+                        <span class="px-2 py-1 bg-purple-600 bg-opacity-30 text-purple-300 rounded-md text-xs">PHP</span>
+                        <span class="px-2 py-1 bg-green-600 bg-opacity-30 text-green-300 rounded-md text-xs">jQuery</span>
+                        <span class="px-2 py-1 bg-blue-600 bg-opacity-30 text-blue-300 rounded-md text-xs">MySQL</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- Schema Markup برای نمونه‌کارها -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Portfolio",
+            "name": "نمونه کارهای حرفه‌ای",
+            "description": "مجموعه‌ای از پروژه‌های توسعه وب و اپلیکیشن شامل فروشگاه آنلاین، سیستم‌های مدیریت و پلتفرم‌های آموزشی",
+            "itemListElement": [
+                {
+                    "@type": "CreativeWork",
+                    "name": "فروشگاه آنلاین زرین",
+                    "description": "طراحی و پیاده‌سازی فروشگاه آنلاین با React و Node.js",
+                    "image": "/storage/project-image/project01.jpg"
+                },
+                {
+                    "@type": "CreativeWork",
+                    "name": "اپلیکیشن مدیریت پروژه نوین",
+                    "description": "طراحی و توسعه سیستم مدیریت پروژه سازمانی با Laravel و Vue.js",
+                    "image": "/storage/project-image/project02.jpg"
+                },
+                {
+                    "@type": "CreativeWork",
+                    "name": "پلتفرم آموزش آنلاین دانا",
+                    "description": "طراحی و توسعه سیستم آموزش آنلاین با قابلیت برگزاری کلاس مجازی",
+                    "image": "/storage/project-image/project03.jpg"
+                },
+                {
+                    "@type": "CreativeWork",
+                    "name": "اپلیکیشن موبایل سلامت یار",
+                    "description": "توسعه اپلیکیشن موبایل پایش سلامت و رژیم غذایی",
+                    "image": "/storage/project-image/project04.jpg"
+                },
+                {
+                    "@type": "CreativeWork",
+                    "name": "داشبورد مدیریت هوشمند ساختمان",
+                    "description": "طراحی و توسعه سیستم مدیریت هوشمند ساختمان با اینترنت اشیا",
+                    "image": "/storage/project-image/project05.jpg"
+                },
+                {
+                    "@type": "CreativeWork",
+                    "name": "پلتفرم مدیریت محتوای پارسی",
+                    "description": "طراحی و توسعه سیستم مدیریت محتوای فارسی با قابلیت سفارشی‌سازی",
+                    "image": "/storage/project-image/project06.jpg"
+                }
+            ]
+        }
+    </script>
+</section>
+
+<!-- بخش تماس با من -->
+<section id="contact" class="py-24 bg-gray-900 bg-opacity-30 relative">
+    <div class="container mx-auto px-6">
+        <h2 class="text-5xl font-bold text-center mb-16 section-heading">تماس <span class="gradient-text">با من</span></h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card p-8 text-center">
+                <div class="w-16 h-16 bg-purple-600 bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-envelope text-purple-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">ایمیل</h3>
+                <p class="text-gray-300">amirpayravan@gmail.com</p>
+                <a href="mailto:contact@amirpayravan" class="text-yellow-400 hover:text-yellow-300 inline-block mt-3">ارسال ایمیل</a>
+            </div>
+
+            <div class="glass-card p-8 text-center">
+                <div class="w-16 h-16 bg-yellow-600 bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-phone-alt text-yellow-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">تلفن</h3>
+                <p class="text-gray-300">09391240239</p>
+                <a href="tel:+989123456789" class="text-yellow-400 hover:text-yellow-300 inline-block mt-3">تماس بگیرید</a>
+            </div>
+
+            <div class="glass-card p-8 text-center">
+                <div class="w-16 h-16 bg-blue-600 bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-map-marker-alt text-blue-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">آدرس</h3>
+                <p class="text-gray-300">ایران - فارس - کازرون</p>
+                <a href="#" class="text-yellow-400 hover:text-yellow-300 inline-block mt-3">مشاهده در نقشه</a>
+            </div>
+        </div>
+
+        <div class="glass-card p-8 mt-12">
+            <h3 class="text-2xl font-bold mb-8 text-center">ارسال پیام</h3>
+
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="form-group">
+                    <label class="block mb-2 text-gray-300">نام</label>
+                    <input type="text" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition-all" placeholder="نام خود را وارد کنید">
+                </div>
+
+                <div class="form-group">
+                    <label class="block mb-2 text-gray-300">ایمیل</label>
+                    <input type="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition-all" placeholder="ایمیل خود را وارد کنید">
+                </div>
+
+                <div class="form-group md:col-span-2">
+                    <label class="block mb-2 text-gray-300">موضوع</label>
+                    <input type="text" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition-all" placeholder="موضوع پیام">
+                </div>
+
+                <div class="form-group md:col-span-2">
+                    <label class="block mb-2 text-gray-300">پیام</label>
+                    <textarea rows="6" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-purple-500 transition-all" placeholder="پیام خود را بنویسید"></textarea>
+                </div>
+
+                <div class="md:col-span-2 text-center">
+                    <button type="submit" class="animated-btn px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-700 text-white rounded-full font-semibold hover:shadow-lg hover:from-purple-700 hover:to-indigo-800 transition-all">
+                        <i class="fas fa-paper-plane ml-2"></i>ارسال پیام
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+<!-- فوتر -->
+<footer class="py-12 bg-gray-900 bg-opacity-70 relative">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <div>
+                <h3 class="text-2xl font-bold mb-6 gradient-text">amirpeyravan</h3>
+                <p class="text-gray-400 mb-6">توسعه‌دهنده Full Stack با تجربه و مدرس دوره‌های برنامه‌نویسی و طراحی وب</p>
+                <div class="flex space-x-4 space-x-reverse">
+                    <a href="https://www.linkedin.com/in/amirpeyravan" class="social-icon text-gray-300 hover:text-white h-10 w-10 bg-gray-800 rounded-full flex items-center justify-center transition-all">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.x.com/amirpeyravan" class="social-icon text-gray-300 hover:text-white h-10 w-10 bg-gray-800 rounded-full flex items-center justify-center transition-all">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/amirpeyravan" class="social-icon text-gray-300 hover:text-white h-10 w-10 bg-gray-800 rounded-full flex items-center justify-center transition-all">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://github.com/amirpeyravan" class="social-icon text-gray-300 hover:text-white h-10 w-10 bg-gray-800 rounded-full flex items-center justify-center transition-all">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.reddit.com/user/amirpeyravan" class="social-icon text-gray-300 hover:text-white h-10 w-10 bg-gray-800 rounded-full flex items-center justify-center transition-all">
+                        <i class="fab fa-reddit"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-6">خدمات</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-all">طراحی وب‌سایت</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-all">توسعه اپلیکیشن موبایل</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-all">طراحی UI/UX</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-all">مشاوره IT</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-yellow-400 transition-all">آموزش و منتورشیپ</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-6">لینک‌های مفید</h3>
+                <ul class="space-y-3">
+                    <li><a href="#home" class="text-gray-400 hover:text-yellow-400 transition-all">خانه</a></li>
+                    <li><a href="#about" class="text-gray-400 hover:text-yellow-400 transition-all">درباره من</a></li>
+                    <li><a href="#skills" class="text-gray-400 hover:text-yellow-400 transition-all">مهارت‌ها</a></li>
+                    <li><a href="#portfolio" class="text-gray-400 hover:text-yellow-400 transition-all">نمونه کارها</a></li>
+                    <li><a href="#contact" class="text-gray-400 hover:text-yellow-400 transition-all">تماس با من</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-6">خبرنامه</h3>
+                <p class="text-gray-400 mb-4">برای اطلاع از آخرین مطالب و آموزش‌ها در خبرنامه عضو شوید</p>
+                <form class="mb-4">
+                    <div class="flex">
+                        <input type="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-r-lg focus:outline-none focus:border-purple-500 transition-all" placeholder="ایمیل خود را وارد کنید">
+                        <button type="submit" class="bg-purple-600 hover:bg-purple-700 px-4 py-3 rounded-l-lg transition-all">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="pt-8 border-t border-gray-800 text-center">
+            <p class="text-gray-400">© ۱۴۰۴ تمامی حقوق محفوظ است. طراحی و توسعه توسط <a href="https://www.amirpeyravan.ir" class="text-yellow-400 hover:text-yellow-300">امیرحسین پیروان</a></p>
+        </div>
+    </div>
+</footer>
+
+
+<script src="/js/app.js"></script>
+</body>
+</html>
