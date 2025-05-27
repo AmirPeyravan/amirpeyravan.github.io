@@ -1,1 +1,1 @@
-Personal web siet : amirpeyravan.github.io
+Personal website : amirpeyravan.github.io
