@@ -229,12 +229,26 @@ hamburger.addEventListener('click', () => {
 });
 
 // بستن منو با کلیک خارج از آن
-document.addEventListener('click', (e) => {
-    if (!nav.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains('active')) {
-        navLinks.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.querySelector('nav');
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    document.addEventListener('click', (e) => {
+        if (
+            nav &&
+            hamburger &&
+            navLinks &&
+            !nav.contains(e.target) &&
+            !hamburger.contains(e.target) &&
+            navLinks.classList.contains('active')
+        ) {
+            navLinks.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
 });
+
 
 // تنظیم برای sticky-nav
 const stickyHamburger = document.createElement('div');
