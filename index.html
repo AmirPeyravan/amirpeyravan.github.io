@@ -105,6 +105,7 @@
 <nav>
   <span class="nav-logo"><span class="name-a">a</span><span class="name-p">p</span> — 2026</span>
   <ul class="nav-links">
+    <li class="nav-resume-item"><button type="button" class="nav-resume-btn" id="resumeBtn" aria-haspopup="dialog">Get Resume</button></li>
     <li><a href="#about" data-nav>About</a></li>
     <li><a href="#skills" data-nav>Skills</a></li>
     <li><a href="#projects" data-nav>Projects</a></li>
@@ -117,11 +118,31 @@
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#about">About</a>
-  <a href="#skills">Skills</a>
-  <a href="#projects">Projects</a>
-  <a href="#experience">Experience</a>
-  <a href="#contact">Contact</a>
+  <button type="button" class="mobile-resume-btn" id="mobileResumeBtn" aria-haspopup="dialog">Get Resume</button>
+  <a href="#about" data-nav>About</a>
+  <a href="#skills" data-nav>Skills</a>
+  <a href="#projects" data-nav>Projects</a>
+  <a href="#experience" data-nav>Experience</a>
+  <a href="#contact" data-nav>Contact</a>
+</div>
+
+<div class="resume-modal" id="resumeModal" aria-hidden="true" role="dialog" aria-labelledby="resumeModalTitle">
+  <div class="resume-modal-backdrop" data-close-modal></div>
+  <div class="resume-modal-panel">
+    <div class="resume-modal-header">
+      <div class="resume-modal-heading">
+        <span class="section-label">Resume</span>
+        <h2 id="resumeModalTitle" class="resume-modal-title">Amirhossein Peyravan</h2>
+      </div>
+      <button type="button" class="resume-modal-close" aria-label="Close preview" data-close-modal>&times;</button>
+    </div>
+    <div class="resume-modal-body">
+      <iframe src="Amirhossein_Peyravan_Resume.pdf#toolbar=0&navpanes=0" title="Resume preview"></iframe>
+    </div>
+    <div class="resume-modal-footer">
+      <a href="Amirhossein_Peyravan_Resume.pdf" target="_blank" rel="noopener" class="btn btn-primary">Download PDF</a>
+    </div>
+  </div>
 </div>
 
 <section id="hero" class="full-bleed">

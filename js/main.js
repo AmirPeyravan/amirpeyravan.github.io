@@ -34,23 +34,81 @@ const cineObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.2 });
 cineSections.forEach(el => cineObserver.observe(el));
 
-// Active nav link tracking
+// Active nav link tracking — scroll position picks the section in view
 const navLinks = document.querySelectorAll('[data-nav]');
 const sectionIds = ['about', 'skills', 'projects', 'experience', 'contact'];
-const navObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    const id = entry.target.id;
-    const link = document.querySelector(`.nav-links a[href="#${id}"]`);
-    if (!link) return;
-    if (entry.isIntersecting) {
-      navLinks.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
-    }
+const NAV_ACTIVE_OFFSET = 120;
+
+function setActiveNavSection(id) {
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
   });
-}, { threshold: 0.4, rootMargin: '-80px 0px -50% 0px' });
-sectionIds.forEach(id => {
-  const el = document.getElementById(id);
-  if (el) navObserver.observe(el);
+}
+
+function updateActiveNav() {
+  const scrollPos = window.scrollY + NAV_ACTIVE_OFFSET;
+  let currentId = '';
+
+  sectionIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const sectionTop = el.getBoundingClientRect().top + window.scrollY;
+    if (scrollPos >= sectionTop) currentId = id;
+  });
+
+  if (currentId) {
+    setActiveNavSection(currentId);
+  } else {
+    navLinks.forEach(link => link.classList.remove('active'));
+  }
+}
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+window.addEventListener('resize', updateActiveNav);
+updateActiveNav();
+
+// Resume preview modal
+const RESUME_PDF = 'Amirhossein_Peyravan_Resume.pdf';
+const resumeModal = document.getElementById('resumeModal');
+const resumeIframe = resumeModal?.querySelector('iframe');
+let resumeScrollY = 0;
+
+function openResumeModal() {
+  if (!resumeModal) return;
+  resumeScrollY = window.scrollY;
+  resumeModal.classList.add('open');
+  resumeModal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  if (resumeIframe) {
+    resumeIframe.src = `${RESUME_PDF}#toolbar=0&navpanes=0`;
+  }
+  resumeModal.querySelector('.resume-modal-close')?.focus();
+}
+
+function closeResumeModal() {
+  if (!resumeModal) return;
+  resumeModal.classList.remove('open');
+  resumeModal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+  window.scrollTo(0, resumeScrollY);
+  if (resumeIframe) resumeIframe.src = 'about:blank';
+}
+
+document.getElementById('resumeBtn')?.addEventListener('click', openResumeModal);
+document.getElementById('mobileResumeBtn')?.addEventListener('click', () => {
+  const menu = document.getElementById('mobileMenu');
+  if (menu?.classList.contains('open')) toggleMenu();
+  openResumeModal();
+});
+
+resumeModal?.querySelectorAll('[data-close-modal]').forEach(el => {
+  el.addEventListener('click', closeResumeModal);
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && resumeModal?.classList.contains('open')) {
+    closeResumeModal();
+  }
 });
 
 // Scroll progress rail
