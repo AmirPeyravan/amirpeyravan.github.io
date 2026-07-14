@@ -1,0 +1,21 @@
+{
+  "name": "Amirhossein Peyravan — Full Stack & Backend Engineer",
+  "short_name": "AP",
+  "description": "Full stack developer specializing in Laravel/PHP backend architecture, REST APIs, Linux infrastructure, and delivery automation.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f2ec",
+  "theme_color": "#f5f2ec",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

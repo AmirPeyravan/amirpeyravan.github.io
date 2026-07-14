@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#0e0e0e"/>
+  <rect x="4" y="4" width="56" height="56" fill="none" stroke="#c84b31" stroke-width="1.5"/>
+  <text x="32" y="41" font-family="Georgia, 'Playfair Display', serif" font-weight="700" font-size="26" fill="#f5f2ec" text-anchor="middle">AP</text>
+</svg>
