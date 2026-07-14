@@ -3,10 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amirhossein Peyravan — Full Stack Developer</title>
+<title>Amirhossein Peyravan — Full Stack &amp; Backend Engineer</title>
+<meta name="description" content="Amirhossein Peyravan — Full stack developer specializing in Laravel/PHP backend architecture, REST API design, Linux infrastructure, and software delivery automation. Founder of Nexavio.">
+
+<!-- Browser chrome sync (Android Chrome / iOS Safari status bar tinting) -->
+<meta name="theme-color" content="#f5f2ec">
+<meta name="msapplication-navbutton-color" content="#f5f2ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AP">
+<meta name="application-name" content="Amirhossein Peyravan">
+<meta name="color-scheme" content="light">
+
+<!-- Favicon / icon -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="manifest" href="manifest.webmanifest">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,6 +43,11 @@
 
   html { scroll-behavior: smooth; font-size: 16px; }
 
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+
   body {
     background: var(--paper);
     color: var(--ink);
@@ -37,6 +59,22 @@
   ::selection { background: var(--accent); color: #fff; }
 
   a { color: inherit; text-decoration: none; }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* ---------- Progress rail (signature element) ---------- */
+  .progress-rail {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--accent);
+    z-index: 200;
+    transition: width 0.05s linear;
+  }
 
   nav {
     position: fixed;
@@ -57,6 +95,21 @@
     font-weight: 400;
     letter-spacing: 0.08em;
     color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-logo .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.4); }
   }
 
   .nav-links {
@@ -71,9 +124,24 @@
     letter-spacing: 0.06em;
     color: var(--text-secondary);
     transition: color 0.2s;
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0%;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.25s;
   }
 
   .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a.active { color: var(--ink); }
+  .nav-links a.active::after { width: 100%; }
 
   .hamburger {
     display: none;
@@ -125,18 +193,36 @@
     background: var(--accent);
   }
 
-#hero {
-  min-height: calc(100vh - 80px);
-  display: flex;
-  align-items: center;
-  padding-top: calc(var(--gap) * 8);
-  padding-bottom: calc(var(--gap) * 8);
-  max-width: none;
-  padding-left: calc(var(--gap) * 5);
-  padding-right: calc(var(--gap) * 5);
-  position: relative;
-  border-bottom: 1px solid var(--rule);
-}
+  #hero {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    padding-top: calc(var(--gap) * 8);
+    padding-bottom: calc(var(--gap) * 8);
+    max-width: none;
+    padding-left: calc(var(--gap) * 5);
+    padding-right: calc(var(--gap) * 5);
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+    overflow: hidden;
+  }
+
+  /* Ambient cinematic backdrop: slow-drifting typographic ghost mark */
+  .hero-ghost {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: min(42vw, 620px);
+    color: transparent;
+    -webkit-text-stroke: 1px var(--rule);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    will-change: transform;
+  }
 
   .hero-inner {
     max-width: 1100px;
@@ -146,6 +232,8 @@
     grid-template-columns: 1fr 360px;
     gap: calc(var(--gap) * 10);
     align-items: end;
+    position: relative;
+    z-index: 1;
   }
 
   .hero-text h1 {
@@ -169,12 +257,15 @@
     color: var(--text-secondary);
     text-transform: uppercase;
     margin-bottom: calc(var(--gap) * 5);
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   .hero-intro {
     font-size: 1.05rem;
     color: var(--text-secondary);
-    max-width: 520px;
+    max-width: 540px;
     line-height: 1.75;
     margin-bottom: calc(var(--gap) * 6);
   }
@@ -296,6 +387,104 @@
     margin-top: 4px;
   }
 
+  .tech-marquee {
+    position: absolute;
+    bottom: 76px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 1;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  }
+
+  .tech-marquee-track {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--gap) * 4);
+    width: max-content;
+    animation: marquee-scroll 32s linear infinite;
+  }
+
+  .tech-marquee:hover .tech-marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .tech-chip {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    padding: 6px 4px;
+    position: relative;
+  }
+
+  .tech-chip::after {
+    content: '/';
+    margin-left: calc(var(--gap) * 4);
+    color: var(--rule);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tech-marquee-track { animation: none; }
+  }
+
+  @media (max-width: 900px) {
+    .tech-marquee { bottom: 64px; }
+  }
+
+  @media (max-height: 640px) {
+    .tech-marquee { display: none; }
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 1;
+  }
+
+  .scroll-cue .line {
+    width: 1px;
+    height: 28px;
+    background: var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scroll-cue .line::after {
+    content: '';
+    position: absolute;
+    top: -100%; left: 0;
+    width: 100%; height: 100%;
+    background: var(--accent);
+    animation: dropline 1.8s ease-in-out infinite;
+  }
+
+  @keyframes dropline {
+    0% { top: -100%; }
+    60% { top: 100%; }
+    100% { top: 100%; }
+  }
+
   .divider {
     border: none;
     border-top: 1px solid var(--rule);
@@ -366,10 +555,28 @@
     padding: calc(var(--gap) * 4);
     border: 1px solid var(--rule);
     background: var(--paper-warm);
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, transform 0.3s;
   }
 
-  .skill-group:hover { border-color: var(--ink); }
+  .skill-group:hover { border-color: var(--ink); transform: translateY(-3px); }
+
+  .skill-group.featured {
+    border-color: var(--ink);
+    position: relative;
+  }
+
+  .skill-group.featured::before {
+    content: 'CORE STRENGTH';
+    position: absolute;
+    top: -9px;
+    left: calc(var(--gap) * 4);
+    background: var(--paper);
+    padding: 0 8px;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+  }
 
   .skill-group-title {
     font-family: var(--mono);
@@ -411,6 +618,34 @@
 
   #projects { border-top: 1px solid var(--rule); }
 
+  .projects-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--gap) * 1.5);
+    margin-top: calc(var(--gap) * 4);
+    margin-bottom: calc(var(--gap) * 2);
+  }
+
+  .filter-btn {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    padding: 6px 14px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+  .filter-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -448,11 +683,24 @@
 
   .project-card:hover::before { height: 100%; }
 
-  .project-num {
+  .project-card.hidden-card { display: none; }
+
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .project-kind {
     font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--text-secondary);
+    font-size: 0.6rem;
     letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    border: 1px solid var(--rule);
+    padding: 2px 8px;
+    white-space: nowrap;
   }
 
   .project-title {
@@ -490,6 +738,11 @@
 
   .project-link:hover { gap: 8px; }
 
+  .project-link.disabled {
+    color: var(--text-secondary);
+    cursor: default;
+  }
+
   #experience { border-top: 1px solid var(--rule); }
 
   .exp-list {
@@ -497,6 +750,7 @@
     display: flex;
     flex-direction: column;
     gap: 0;
+    position: relative;
   }
 
   .exp-item {
@@ -536,6 +790,14 @@
     font-size: 0.75rem;
     color: var(--text-secondary);
     letter-spacing: 0.04em;
+    margin-bottom: calc(var(--gap) * 1.5);
+  }
+
+  .exp-detail {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 560px;
   }
 
   #contact {
@@ -641,6 +903,17 @@
   .reveal-delay-3 { transition-delay: 0.3s; }
   .reveal-delay-4 { transition-delay: 0.4s; }
 
+  /* Cinematic per-section frame: sections scale/fade slightly as they take over the viewport */
+  .cine-section {
+    opacity: 0.35;
+    transform: scale(0.985);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .cine-section.in-frame {
+    opacity: 1;
+    transform: scale(1);
+  }
+
   .mobile-menu {
     display: none;
     position: fixed;
@@ -677,6 +950,7 @@
     }
     .hero-aside { order: -1; }
     .profile-frame { width: 200px; height: 240px; }
+    .hero-ghost { font-size: 60vw; }
 
     section { padding: calc(var(--gap) * 10) 24px; }
 
@@ -705,16 +979,18 @@
 </head>
 <body>
 
+<div class="progress-rail" id="progressRail"></div>
+
 <nav>
-  <span class="nav-logo">AP — 2026</span>
+  <span class="nav-logo"><span class="dot"></span>AP — 2026</span>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about" data-nav>About</a></li>
+    <li><a href="#skills" data-nav>Skills</a></li>
+    <li><a href="#projects" data-nav>Projects</a></li>
+    <li><a href="#experience" data-nav>Experience</a></li>
+    <li><a href="#contact" data-nav>Contact</a></li>
   </ul>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -728,11 +1004,12 @@
 </div>
 
 <section id="hero" class="full-bleed">
+  <div class="hero-ghost" id="heroGhost" aria-hidden="true">LARAVEL</div>
   <div class="hero-inner">
     <div class="hero-text">
-      <p class="hero-role">Full Stack Developer · Iran</p>
+      <p class="hero-role">Full Stack &amp; Backend Engineer · Fars Province, Iran</p>
       <h1>Amir<em>hossein</em><br>Peyravan</h1>
-      <p class="hero-intro">I architect scalable backend systems and lead product teams — from API design and deployment automation to running a software company from the ground up. Two years in, still building things that last.</p>
+      <p class="hero-intro">I build backend systems that don't fall over — REST APIs, Linux infrastructure, and the automation pipelines that get code from a commit to production without anyone babysitting it. Founder of Nexavio. Two years in, shipping continuously.</p>
       <div class="hero-cta">
         <a href="#contact" class="btn btn-primary">Get in touch</a>
         <a href="#projects" class="btn btn-secondary">View work</a>
@@ -755,41 +1032,77 @@
           <div class="stat-label">Years exp.</div>
         </div>
         <div class="stat">
-          <div class="stat-num">6+</div>
-          <div class="stat-label">Projects</div>
+          <div class="stat-num">15+</div>
+          <div class="stat-label">Projects shipped</div>
         </div>
         <div class="stat">
-          <div class="stat-num">7</div>
-          <div class="stat-label">Roles held</div>
+          <div class="stat-num">1</div>
+          <div class="stat-label">Company founded</div>
         </div>
       </div>
     </div>
   </div>
+  <div class="tech-marquee" role="img" aria-label="Core technologies: Linux, PHP, Laravel, Docker, MySQL, Git, REST API, Kubernetes, Nginx, MongoDB, Python, GitLab CI">
+    <div class="tech-marquee-track">
+      <span class="tech-chip">Linux</span>
+      <span class="tech-chip">PHP</span>
+      <span class="tech-chip">Laravel</span>
+      <span class="tech-chip">Docker</span>
+      <span class="tech-chip">MySQL</span>
+      <span class="tech-chip">Git</span>
+      <span class="tech-chip">REST API</span>
+      <span class="tech-chip">Kubernetes</span>
+      <span class="tech-chip">Nginx</span>
+      <span class="tech-chip">MongoDB</span>
+      <span class="tech-chip">Python</span>
+      <span class="tech-chip">GitLab CI</span>
+      <span class="tech-chip">Linux</span>
+      <span class="tech-chip">PHP</span>
+      <span class="tech-chip">Laravel</span>
+      <span class="tech-chip">Docker</span>
+      <span class="tech-chip">MySQL</span>
+      <span class="tech-chip">Git</span>
+      <span class="tech-chip">REST API</span>
+      <span class="tech-chip">Kubernetes</span>
+      <span class="tech-chip">Nginx</span>
+      <span class="tech-chip">MongoDB</span>
+      <span class="tech-chip">Python</span>
+      <span class="tech-chip">GitLab CI</span>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><span class="line"></span></div>
 </section>
 
-<section id="about">
+<section id="about" class="cine-section">
   <div class="about-heading reveal">
     <div class="section-label">About</div>
     <h2>Builder.<br>Founder.<br>Engineer.</h2>
   </div>
   <div class="about-body reveal reveal-delay-1">
     <p>
-      I'm a full stack developer with a strong backend foundation, currently studying <strong>Computer Engineering at Islamic Azad University of Kazerun</strong>. I started writing production code two years ago and haven't slowed down since — working across agencies, startups, and my own company.
+      I'm a full stack developer with a backend-first mindset, currently studying <strong>Computer Engineering at Islamic Azad University, Kazerun Branch</strong>. I started shipping production code in 2024 and have worked continuously since — across agencies, a national university system, a regional municipality, and my own company.
     </p>
     <p>
-      My core expertise lives in the <strong>PHP/Laravel ecosystem</strong>, where I build REST APIs, automate processes, and integrate complex third-party systems. I've also worked hands-on with containerized infrastructure (Docker, Kubernetes) and understand what it takes to deploy and maintain software at scale on Linux environments.
+      My core expertise is the <strong>PHP/Laravel ecosystem</strong>: REST API design, service-oriented backend architecture, and third-party system integration. Beyond the code itself, I care about <strong>how software gets delivered</strong> — CI/CD pipelines, containerized environments, and automating the repetitive parts of a release so teams can ship faster with fewer surprises.
     </p>
     <p>
-      In January 2025, I founded <strong>Nexavio</strong> — a software company based in Shiraz — where I lead product development and client delivery. I believe clean architecture and genuine communication with clients are what separate good work from forgettable work.
+      <strong>Linux is where I actually live.</strong> I hold an <strong>LPIC-1</strong> certification and run production workloads on Linux daily — provisioning servers, managing services, hardening access, and debugging things at the OS level when the framework isn't the problem.
+    </p>
+    <p>
+      In January 2025, I founded <strong>Nexavio</strong>, a software company based in Fars Province, where I lead product architecture and client delivery end-to-end. I've since worked on platforms ranging from real-estate marketplaces and OTT streaming to university and municipal systems — different domains, same standard: clean architecture, honest scoping, and software that's still maintainable a year later.
     </p>
     <div class="about-meta">
       <div class="about-meta-row">
         <span class="about-meta-label">Location</span>
-        <span class="about-meta-value">Shiraz, Fars Province, Iran</span>
+        <span class="about-meta-value">Fars Province, Iran</span>
       </div>
       <div class="about-meta-row">
         <span class="about-meta-label">Education</span>
-        <span class="about-meta-value">B.Sc. Computer Engineering (in progress)</span>
+        <span class="about-meta-value">B.Sc. Computer Engineering — IAU Kazerun (in progress)</span>
+      </div>
+      <div class="about-meta-row">
+        <span class="about-meta-label">Certification</span>
+        <span class="about-meta-value">LPIC-1 (Linux Professional Institute)</span>
       </div>
       <div class="about-meta-row">
         <span class="about-meta-label">Languages</span>
@@ -797,175 +1110,381 @@
       </div>
       <div class="about-meta-row">
         <span class="about-meta-label">Available</span>
-        <span class="about-meta-value">Open to remote & on-site roles</span>
+        <span class="about-meta-value">Open to remote &amp; on-site roles</span>
       </div>
     </div>
   </div>
 </section>
 
-<section id="skills">
+<section id="skills" class="cine-section">
   <div class="section-label reveal">Skills</div>
   <div class="skills-grid">
-    <div class="skill-group reveal reveal-delay-1">
+    <div class="skill-group featured reveal reveal-delay-1">
+      <div class="skill-group-title">Linux &amp; Systems</div>
+      <div class="skill-tags">
+        <span class="tag adv">Linux (LPIC-1)</span>
+        <span class="tag adv">Shell scripting</span>
+        <span class="tag adv">Server hardening</span>
+        <span class="tag">Nginx / Apache</span>
+        <span class="tag">Process management</span>
+        <span class="tag">Cron &amp; systemd</span>
+      </div>
+    </div>
+    <div class="skill-group featured reveal reveal-delay-2">
+      <div class="skill-group-title">Automation &amp; Delivery</div>
+      <div class="skill-tags">
+        <span class="tag adv">CI/CD Pipelines</span>
+        <span class="tag adv">GitLab CI</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Kubernetes</span>
+        <span class="tag">Zero-downtime deploys</span>
+        <span class="tag">Infrastructure automation</span>
+      </div>
+    </div>
+    <div class="skill-group reveal reveal-delay-3">
       <div class="skill-group-title">Backend</div>
       <div class="skill-tags">
         <span class="tag adv">PHP</span>
         <span class="tag adv">Laravel</span>
-        <span class="tag adv">REST API</span>
+        <span class="tag adv">REST API design</span>
         <span class="tag">MySQL</span>
         <span class="tag">MongoDB</span>
-        <span class="tag">Elastic Search</span>
-        <span class="tag">Sql Server</span>
+        <span class="tag">Elasticsearch</span>
+        <span class="tag">SQL Server</span>
         <span class="tag">.NET Core</span>
         <span class="tag">Python</span>
         <span class="tag">Unit Testing</span>
       </div>
     </div>
-    <div class="skill-group reveal reveal-delay-2">
+    <div class="skill-group reveal reveal-delay-4">
       <div class="skill-group-title">Frontend</div>
       <div class="skill-tags">
-        <span class="tag adv">HTML & CSS</span>
+        <span class="tag adv">HTML &amp; CSS</span>
         <span class="tag">JavaScript</span>
         <span class="tag">Selenium</span>
       </div>
     </div>
-    <div class="skill-group reveal reveal-delay-3">
-      <div class="skill-group-title">DevOps & Infra</div>
+    <div class="skill-group reveal reveal-delay-1">
+      <div class="skill-group-title">Version Control &amp; Tooling</div>
       <div class="skill-tags">
-        <span class="tag adv">Linux</span>
-        <span class="tag adv">GIT</span>
-        <span class="tag">Docker</span>
-        <span class="tag">Kubernetes</span>
-        <span class="tag">GitLab</span>
-        <span class="tag">LPIC-1</span>
+        <span class="tag adv">Git</span>
+        <span class="tag adv">GitLab</span>
+        <span class="tag">GitHub Actions</span>
+        <span class="tag">Code review</span>
       </div>
     </div>
-    <div class="skill-group reveal reveal-delay-4">
-      <div class="skill-group-title">Soft Skills</div>
+    <div class="skill-group reveal reveal-delay-2">
+      <div class="skill-group-title">Leadership &amp; Delivery</div>
       <div class="skill-tags">
-        <span class="tag">Team Communication</span>
-        <span class="tag">Problem Solving</span>
-        <span class="tag">Client Relations</span>
-        <span class="tag">Accountability</span>
-        <span class="tag">Scalability thinking</span>
-        <span class="tag">24/7 Support mindset</span>
+        <span class="tag">Team communication</span>
+        <span class="tag">Client relations</span>
+        <span class="tag">Technical accountability</span>
+        <span class="tag">Scalability planning</span>
+        <span class="tag">24/7 production support</span>
       </div>
     </div>
   </div>
 </section>
 
-<section id="projects">
+<section id="projects" class="cine-section">
   <div class="section-label reveal">Projects</div>
-  <div class="projects-grid">
-    <div class="project-card reveal reveal-delay-1">
-      <div class="project-num">01</div>
-      <div class="project-title">Hominex</div>
-      <p class="project-desc">API-driven platform built with a focus on process automation and system integration. Responsible for designing the backend architecture and connecting automated workflows across the application layer.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">REST API</span>
-        <span class="tag">MySQL</span>
+  <div class="projects-filter reveal">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="marketplace">Marketplace</button>
+    <button class="filter-btn" data-filter="enterprise">Enterprise / Gov</button>
+    <button class="filter-btn" data-filter="ott">OTT / Media</button>
+    <button class="filter-btn" data-filter="founder">Founder</button>
+  </div>
+  <div class="projects-grid" id="projectsGrid">
+
+    <div class="project-card reveal reveal-delay-1" data-category="founder enterprise">
+      <div class="project-top">
+        <div class="project-num">
+          <div class="project-title">Nexavio</div>
+        </div>
+        <span class="project-kind">Founder / CEO</span>
       </div>
-      <a href="https://hominex.ir" target="_blank" class="project-link">Visit site →</a>
-    </div>
-    <div class="project-card reveal reveal-delay-2">
-      <div class="project-num">02</div>
-      <div class="project-title">Nexavio</div>
-      <p class="project-desc">My own software company. I founded and run Nexavio as CEO, overseeing product development, client delivery, and technical direction. A real-world test of both engineering and leadership skills.</p>
+      <p class="project-desc">The software company I founded and run. I own product architecture, client delivery, and technical direction — every client project on this list that I built independently runs through Nexavio's process and infrastructure.</p>
       <div class="project-stack">
         <span class="tag">PHP</span>
         <span class="tag">Laravel</span>
         <span class="tag">Linux</span>
+        <span class="tag">CI/CD</span>
       </div>
-      <a href="https://nexavio.ir" target="_blank" class="project-link">Visit site →</a>
+      <a href="https://nexavio.ir" target="_blank" rel="noopener" class="project-link">nexavio.ir →</a>
     </div>
-    <div class="project-card reveal reveal-delay-3">
-      <div class="project-num">03</div>
-      <div class="project-title">Kazerun Online</div>
-      <p class="project-desc">Regional online platform developed and maintained as a full stack project. Handles public-facing features and backend data management for an audience-facing web service in Kazerun.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">HTML/CSS</span>
+
+    <div class="project-card reveal reveal-delay-2" data-category="marketplace">
+      <div class="project-top">
+        <div class="project-num">
+          <div class="project-title">Aloomelk</div>
+        </div>
+        <span class="project-kind">Real Estate</span>
       </div>
-      <a href="https://kazerun.online" target="_blank" class="project-link">Visit site →</a>
-    </div>
-    <div class="project-card reveal reveal-delay-1">
-      <div class="project-num">04</div>
-      <div class="project-title">Majazisho</div>
-      <p class="project-desc">A web platform deployed and maintained as part of ongoing project work. Backend implementation focused on stability, clean structure, and reliable delivery for end users.</p>
-      <div class="project-stack">
-        <span class="tag">PHP</span>
-        <span class="tag">Laravel</span>
-        <span class="tag">MySQL</span>
-      </div>
-      <a href="https://majazisho.net" target="_blank" class="project-link">Visit site →</a>
-    </div>
-    <div class="project-card reveal reveal-delay-2">
-      <div class="project-num">05</div>
-      <div class="project-title">Roosta Org Portal</div>
-      <p class="project-desc">Dedicated organizational web portal developed for Nsiranad Org. Designed and built from spec to delivery — covering information architecture, backend logic, and UI implementation.</p>
+      <p class="project-desc">Real-estate listing and marketplace platform. Backend architecture for property listings, search/filtering, and user-facing marketplace flows built on a Laravel REST API.</p>
       <div class="project-stack">
         <span class="tag">Laravel</span>
         <span class="tag">REST API</span>
+        <span class="tag">MySQL</span>
+      </div>
+      <a href="https://aloomelk.ir" target="_blank" rel="noopener" class="project-link">aloomelk.ir →</a>
+    </div>
+
+    <div class="project-card reveal reveal-delay-3" data-category="enterprise">
+      <div class="project-top">
+        <div class="project-num">
+          <div class="project-title">Hominex</div>
+        </div>
+        <span class="project-kind">API &amp; Automation</span>
+      </div>
+      <p class="project-desc">API-driven platform focused on process automation and cross-system integration. Responsible for backend architecture and connecting automated workflows across the application layer.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">REST API</span>
+        <span class="tag">MySQL</span>
+      </div>
+      <a href="https://hominex.ir" target="_blank" rel="noopener" class="project-link">hominex.ir →</a>
+    </div>
+
+    <div class="project-card reveal reveal-delay-1" data-category="enterprise">
+      <div class="project-num">
+        <div class="project-top">
+          <div>
+            <div class="project-title">Homi Work</div>
+          </div>
+          <span class="project-kind">Internal Systems</span>
+        </div>
+      </div>
+      <p class="project-desc">Internal organizational management system for coordinating in-house operations and workflows — a companion platform to Hominex's automation stack.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">REST API</span>
+        <span class="tag">MySQL</span>
+      </div>
+      <a href="https://homi.api-hominex.ir" target="_blank" rel="noopener" class="project-link">homi.api-hominex.ir →</a>
+    </div>
+
+    <div class="project-card reveal reveal-delay-2" data-category="marketplace">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Bazargani Ahmadian</div>
+        </div>
+        <span class="project-kind">Commerce</span>
+      </div>
+      <p class="project-desc">Trading and commerce platform for an import/export business. Backend implementation covering catalog structure, order handling, and admin operations.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">MySQL</span>
         <span class="tag">HTML/CSS</span>
       </div>
+      <a href="https://bazargani-ahmadian.com" target="_blank" rel="noopener" class="project-link">bazargani-ahmadian.com →</a>
     </div>
-    <div class="project-card reveal reveal-delay-3">
-      <div class="project-num">06</div>
-      <div class="project-title">Personal Dev Hub</div>
-      <p class="project-desc">A personal showcase and experimentation space for side projects, open source contributions, and proof-of-concept work. Actively maintained on GitHub.</p>
-      <div class="project-stack">
-        <span class="tag">PHP</span>
-        <span class="tag">JavaScript</span>
-        <span class="tag">Docker</span>
+
+    <div class="project-card reveal reveal-delay-3" data-category="marketplace">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Mother Pharmacy</div>
+        </div>
+        <span class="project-kind">Healthcare Retail</span>
       </div>
-      <a href="https://github.com/a" target="_blank" class="project-link">View on GitHub →</a>
+      <p class="project-desc">Online pharmacy platform. Focused on reliable inventory-backed ordering, clean information architecture, and stable delivery for a healthcare-facing audience.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">REST API</span>
+      </div>
+      <a href="https://mother-pharmacy.com" target="_blank" rel="noopener" class="project-link">mother-pharmacy.com →</a>
     </div>
+
+    <div class="project-card reveal reveal-delay-1" data-category="enterprise">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Parnian Data</div>
+        </div>
+        <span class="project-kind">Employer · Contract work</span>
+      </div>
+      <p class="project-desc">Full stack development work delivered as an employee of Parnian Data — included for context on scope and stack; the codebase and IP belong to the company, not to me independently.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">PHP</span>
+        <span class="tag">MySQL</span>
+      </div>
+      <a href="https://parniandata.ir" target="_blank" rel="noopener" class="project-link">parniandata.ir →</a>
+    </div>
+
+    <div class="project-card reveal reveal-delay-2" data-category="marketplace">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Ahoora Gallery</div>
+        </div>
+        <span class="project-kind">E-commerce</span>
+      </div>
+      <p class="project-desc">Product gallery and e-commerce platform. Backend logic for product catalogs, media-heavy listings, and storefront delivery.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">HTML/CSS</span>
+      </div>
+      <a href="https://ahoora-gallery.ir" target="_blank" rel="noopener" class="project-link">ahoora-gallery.ir →</a>
+    </div>
+
+    <div class="project-card reveal reveal-delay-3" data-category="marketplace">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Khodroonet</div>
+        </div>
+        <span class="project-kind">Automotive Marketplace</span>
+      </div>
+      <p class="project-desc">Automotive listings and marketplace platform. Backend work covering listing management, search, and user-facing marketplace mechanics.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">REST API</span>
+        <span class="tag">MySQL</span>
+      </div>
+      <a href="https://khodroonet.ir" target="_blank" rel="noopener" class="project-link">khodroonet.ir →</a>
+    </div>
+
+    <div class="project-card reveal reveal-delay-1" data-category="enterprise">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Iracode</div>
+        </div>
+        <span class="project-kind">Employer · Contract work</span>
+      </div>
+      <p class="project-desc">Laravel backend development delivered under contract for Iracode. Included for scope and stack context; codebase and IP belong to the company.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">PHP</span>
+      </div>
+      <a href="https://iracode.com" target="_blank" rel="noopener" class="project-link">iracode.com →</a>
+    </div>
+
+    <div class="project-card reveal reveal-delay-2" data-category="enterprise">
+      <div class="project-top">
+        <div>
+          <div class="project-title">ASDP Co</div>
+        </div>
+        <span class="project-kind">Employer · Contract work</span>
+      </div>
+      <p class="project-desc">Backend engineering work delivered under contract for ASDP Co. Included for scope and stack context; codebase and IP belong to the company.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">PHP</span>
+      </div>
+      <a href="https://asdpco.ir" target="_blank" rel="noopener" class="project-link">asdpco.ir →</a>
+    </div>
+
+    <div class="project-card reveal reveal-delay-3" data-category="enterprise">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Islamic Azad University</div>
+        </div>
+        <span class="project-kind">National Institution</span>
+      </div>
+      <p class="project-desc">Development and integration work delivered in collaboration with Islamic Azad University's technical systems — one of the largest university networks in Iran.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">REST API</span>
+      </div>
+      <a href="https://iau.ir/fa" target="_blank" rel="noopener" class="project-link">iau.ir →</a>
+    </div>
+
+    <div class="project-card reveal reveal-delay-1" data-category="ott">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Moviesho</div>
+        </div>
+        <span class="project-kind">OTT Platform</span>
+      </div>
+      <p class="project-desc">Video-on-demand streaming platform. Backend work supporting content delivery, catalog structure, and platform-scale API needs typical of an OTT service.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">REST API</span>
+        <span class="tag">MySQL</span>
+      </div>
+      <a href="https://www.moviesho.com" target="_blank" rel="noopener" class="project-link">moviesho.com →</a>
+    </div>
+
+    <div class="project-card reveal reveal-delay-2" data-category="marketplace">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Sazkala</div>
+        </div>
+        <span class="project-kind">B2B Marketplace</span>
+      </div>
+      <p class="project-desc">B2B goods marketplace platform. Backend architecture for vendor/product management and transactional marketplace flows.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">REST API</span>
+        <span class="tag">MySQL</span>
+      </div>
+      <a href="https://sazkala.com" target="_blank" rel="noopener" class="project-link">sazkala.com →</a>
+    </div>
+
+    <div class="project-card reveal reveal-delay-3" data-category="enterprise">
+      <div class="project-top">
+        <div>
+          <div class="project-title">Tehran Municipality — District 1</div>
+        </div>
+        <span class="project-kind">Government</span>
+      </div>
+      <p class="project-desc">Public-sector web portal for Tehran's District 1 municipal administration. Backend implementation for a government-facing service handling citizen-facing information and internal data management.</p>
+      <div class="project-stack">
+        <span class="tag">Laravel</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">HTML/CSS</span>
+      </div>
+      <a href="https://region1.tehran.ir" target="_blank" rel="noopener" class="project-link">region1.tehran.ir →</a>
+    </div>
+
   </div>
 </section>
 
-<section id="experience">
+<section id="experience" class="cine-section">
   <div class="section-label reveal">Experience</div>
   <div class="exp-list">
     <div class="exp-item reveal">
       <div class="exp-period">
         Aug 2025 — Present
-        <span class="exp-duration">9 months</span>
+        <span class="exp-duration">~11 months</span>
       </div>
       <div>
         <div class="exp-role">Full Stack Developer</div>
-        <div class="exp-company">Parnian Data · Kazeroon, Iran</div>
+        <div class="exp-company">Parnian Data · Kazerun, Iran</div>
+        <p class="exp-detail">Concurrent contract role alongside Nexavio. Laravel-based feature development and maintenance.</p>
       </div>
     </div>
     <div class="exp-item reveal reveal-delay-1">
       <div class="exp-period">
         Jun 2025 — Present
-        <span class="exp-duration">11 months</span>
+        <span class="exp-duration">~1 year</span>
       </div>
       <div>
-        <div class="exp-role">API & Automation Engineer</div>
+        <div class="exp-role">API &amp; Automation Engineer</div>
         <div class="exp-company">Hominex · Mashhad, Iran</div>
+        <p class="exp-detail">Backend architecture and workflow automation across Hominex and the internal Homi Work platform.</p>
       </div>
     </div>
     <div class="exp-item reveal reveal-delay-2">
       <div class="exp-period">
         Jan 2025 — Present
-        <span class="exp-duration">1 yr 4 mo</span>
+        <span class="exp-duration">~1.5 years</span>
       </div>
       <div>
-        <div class="exp-role">CEO & Technical Lead</div>
-        <div class="exp-company">Nexavio · Shiraz, Iran</div>
+        <div class="exp-role">Founder &amp; Technical Lead</div>
+        <div class="exp-company">Nexavio · Fars Province, Iran</div>
+        <p class="exp-detail">Founded and run the company. Own architecture decisions, client delivery, and deployment infrastructure across all independent client projects.</p>
       </div>
     </div>
     <div class="exp-item reveal reveal-delay-3">
       <div class="exp-period">
-        Dec 2025 — Mar 2026
-        <span class="exp-duration">3 months</span>
+        Sep 2024 — Dec 2024
+        <span class="exp-duration">4 months</span>
       </div>
       <div>
         <div class="exp-role">Laravel Backend Developer</div>
         <div class="exp-company">Iracode · Tehran, Iran</div>
+        <p class="exp-detail">Contract backend development work on Laravel-based systems.</p>
       </div>
     </div>
     <div class="exp-item reveal reveal-delay-1">
@@ -975,7 +1494,8 @@
       </div>
       <div>
         <div class="exp-role">Portal Developer</div>
-        <div class="exp-company">Nsiranad Org · Shiraz, Iran</div>
+        <div class="exp-company">Islamic Azad University · Kazerun, Iran</div>
+        <p class="exp-detail">University portal development and systems integration work.</p>
       </div>
     </div>
     <div class="exp-item reveal reveal-delay-2">
@@ -985,31 +1505,22 @@
       </div>
       <div>
         <div class="exp-role">Full Stack Developer</div>
-        <div class="exp-company">Kazerun Online · Shiraz, Iran</div>
-      </div>
-    </div>
-    <div class="exp-item reveal reveal-delay-3">
-      <div class="exp-period">
-        Mar 2024 — Present
-        <span class="exp-duration">2+ years</span>
-      </div>
-      <div>
-        <div class="exp-role">Software Deployment Specialist</div>
-        <div class="exp-company">Private Project · Shiraz, Iran</div>
+        <div class="exp-company">Independent client projects · Fars Province, Iran</div>
+        <p class="exp-detail">Ongoing freelance and contract delivery, including e-commerce, marketplace, and government-facing platforms.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="contact">
+<section id="contact" class="cine-section">
   <div class="section-label reveal" style="justify-content:center">Contact</div>
   <h2 class="contact-heading reveal">Let's build<br><em style="font-style:italic;color:var(--accent)">something</em> together.</h2>
   <p class="contact-sub reveal reveal-delay-1">Open to backend, full stack, and contract roles — remote or on-site.</p>
   <a href="mailto:amirpayravan@gmail.com" class="contact-email reveal reveal-delay-2">amirpayravan@gmail.com</a>
   <div class="social-links reveal reveal-delay-3">
-    <a href="https://github.com/amirpeyravan" target="_blank" class="social-link">GitHub</a>
-    <a href="https://www.linkedin.com/in/amirpeyravan" target="_blank" class="social-link">LinkedIn</a>
-    <a href="tel:+989391240239" class="social-link">+98 939 124 0239</a>
+    <a href="https://github.com/amirpeyravan" target="_blank" rel="noopener" class="social-link">GitHub</a>
+    <a href="https://www.linkedin.com/in/amirpeyravan" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
+    <a href="tel:+989101740239" class="social-link">+98 910 174 0239</a>
   </div>
 </section>
 
@@ -1022,9 +1533,13 @@
 
 <script>
   function toggleMenu() {
-    document.getElementById('mobileMenu').classList.toggle('open');
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.querySelector('.hamburger');
+    const isOpen = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   }
 
+  // Reveal-on-scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1036,11 +1551,119 @@
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+  // Cinematic section framing: each section "comes into frame" as it dominates the viewport
+  const cineSections = document.querySelectorAll('.cine-section');
+  const cineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle('in-frame', entry.isIntersecting);
+    });
+  }, { threshold: 0.2 });
+  cineSections.forEach(el => cineObserver.observe(el));
+
+  // Active nav link tracking
+  const navLinks = document.querySelectorAll('[data-nav]');
+  const sectionIds = ['about', 'skills', 'projects', 'experience', 'contact'];
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.id;
+      const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+      if (!link) return;
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4, rootMargin: '-80px 0px -50% 0px' });
+  sectionIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) navObserver.observe(el);
+  });
+
+  // Scroll progress rail
+  const progressRail = document.getElementById('progressRail');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressRail.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // Hero ghost word drifts slowly with scroll — ambient cinematic motion, no jank
+  const heroGhost = document.getElementById('heroGhost');
+  const heroWords = ['LARAVEL', 'LINUX', 'REST API', 'DOCKER', 'NEXAVIO'];
+  let wordIndex = 0;
+  function rotateGhostWord() {
+    wordIndex = (wordIndex + 1) % heroWords.length;
+    heroGhost.style.opacity = '0';
+    setTimeout(() => {
+      heroGhost.textContent = heroWords[wordIndex];
+      heroGhost.style.opacity = '1';
+    }, 400);
+  }
+  heroGhost.style.transition = 'opacity 0.4s ease';
+  setInterval(rotateGhostWord, 3200);
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const scrolled = window.scrollY;
+        heroGhost.style.transform = `translate(-50%, calc(-50% + ${scrolled * 0.08}px))`;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Project filter
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      projectCards.forEach(card => {
+        const categories = card.dataset.category || '';
+        const show = filter === 'all' || categories.split(' ').includes(filter);
+        card.classList.toggle('hidden-card', !show);
+      });
+    });
+  });
+
   const profileImg = document.querySelector('.profile-frame img');
   if (profileImg && profileImg.src.includes('your-image-url-here')) {
     profileImg.style.display = 'none';
     profileImg.parentNode.querySelector('.profile-placeholder').style.display = 'flex';
   }
+
+  // Mobile browser chrome color sync (Android Chrome theme-color / iOS status bar)
+  // Sync theme-color to the section currently dominating the viewport so the
+  // browser UI subtly tracks the page as the user scrolls, per section background.
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  const sectionColors = {
+    hero: '#f5f2ec',
+    about: '#f5f2ec',
+    skills: '#ede9e0',
+    projects: '#f5f2ec',
+    experience: '#ede9e0',
+    contact: '#f5f2ec'
+  };
+  const colorSections = ['hero', 'about', 'skills', 'projects', 'experience', 'contact'];
+  const colorObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && themeColorMeta) {
+        const color = sectionColors[entry.target.id];
+        if (color) themeColorMeta.setAttribute('content', color);
+      }
+    });
+  }, { threshold: 0.5 });
+  colorSections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) colorObserver.observe(el);
+  });
 </script>
 </body>
 </html>
