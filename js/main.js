@@ -1,16 +1,75 @@
 function toggleMenu() {
   const menu = document.getElementById('mobileMenu');
   const btn = document.querySelector('.hamburger');
+  const nav = document.querySelector('nav');
   if (!menu || !btn) return;
   const isOpen = menu.classList.toggle('open');
   btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Menu');
+  if (isOpen && nav) nav.classList.remove('nav-hidden');
 }
 
 document.querySelector('.hamburger')?.addEventListener('click', toggleMenu);
 document.querySelectorAll('.mobile-menu a').forEach((link) => {
-link.addEventListener('click', toggleMenu);
+  link.addEventListener('click', toggleMenu);
 });
+
+// Mobile-only: hide header on scroll down, reveal on scroll up
+(function initMobileNavAutoHide() {
+  const nav = document.querySelector('nav');
+  if (!nav) return;
+
+  const mq = window.matchMedia('(max-width: 900px)');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let lastY = window.scrollY;
+  let ticking = false;
+
+  function showNav() {
+    nav.classList.remove('nav-hidden');
+  }
+
+  function syncNavVisibility() {
+    if (!mq.matches || reduced.matches) {
+      showNav();
+      return;
+    }
+
+    const menuOpen = document.getElementById('mobileMenu')?.classList.contains('open');
+    if (menuOpen) {
+      showNav();
+      return;
+    }
+
+    const y = window.scrollY;
+    const delta = y - lastY;
+
+    if (y < 56) {
+      showNav();
+    } else if (delta > 8) {
+      nav.classList.add('nav-hidden');
+    } else if (delta < -8) {
+      showNav();
+    }
+
+    lastY = y;
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      syncNavVisibility();
+      ticking = false;
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  mq.addEventListener('change', () => {
+    lastY = window.scrollY;
+    showNav();
+  });
+  reduced.addEventListener('change', showNav);
+})();
 
 // Reveal-on-scroll
 const revealRootMargin = window.matchMedia('(max-width: 900px)').matches
