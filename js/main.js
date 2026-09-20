@@ -1,8 +1,10 @@
 function toggleMenu() {
-const menu = document.getElementById('mobileMenu');
-const btn = document.querySelector('.hamburger');
-const isOpen = menu.classList.toggle('open');
-btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  const menu = document.getElementById('mobileMenu');
+  const btn = document.querySelector('.hamburger');
+  if (!menu || !btn) return;
+  const isOpen = menu.classList.toggle('open');
+  btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  btn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Menu');
 }
 
 document.querySelector('.hamburger')?.addEventListener('click', toggleMenu);
@@ -36,7 +38,7 @@ cineSections.forEach(el => cineObserver.observe(el));
 
 // Active nav link tracking — scroll position picks the section in view
 const navLinks = document.querySelectorAll('[data-nav]');
-const sectionIds = ['about', 'skills', 'projects', 'experience', 'contact'];
+const sectionIds = ['about', 'projects', 'skills', 'experience', 'contact'];
 const NAV_ACTIVE_OFFSET = 120;
 
 function setActiveNavSection(id) {
@@ -188,10 +190,114 @@ function initMarquee() {
 }
 
 initMarquee();
+
+// Project logo river — two counter-scrolling rows, bare logos, no links
+const logoRowA = [
+  { name: 'Nexavio', src: 'companies/nexavio.png' },
+  { name: 'Aloomelk', src: 'companies/aloomelk.svg' },
+  { name: 'Moviesho', src: 'companies/moviesho.png' },
+  { name: 'Khodroonet', src: 'companies/khodroonet.png' },
+  { name: 'ASDP Co', src: 'companies/asdpco.png' },
+  { name: 'Mother Pharmacy', src: 'companies/mother-pharmacy.svg' },
+  { name: 'Sazkala', src: 'companies/sazkala.png' },
+  { name: 'Karinja', src: 'companies/karinja.png' },
+  { name: 'RCS Iran', src: 'companies/rcs_iran.png' },
+  { name: 'Next Hour', src: 'companies/next-hour.png' },
+  { name: 'Fars Developers', src: 'companies/farsdevelopers.png' }
+];
+
+const logoRowB = [
+  { name: 'Hominex', src: 'companies/hominex.webp' },
+  { name: 'Parnian Data', src: 'companies/parniandata.png' },
+  { name: 'Iracode', src: 'companies/iracode.png' },
+  { name: 'Ahoora Gallery', src: 'companies/ahoora-gallery.png' },
+  { name: 'Bazargani Ahmadian', src: 'companies/bazargani-ahmadian.png' },
+  { name: 'Islamic Azad University', src: 'companies/iau_ir.webp' },
+  { name: 'Tehran Municipality District 1', src: 'companies/region1.tehran.svg' },
+  { name: 'Homi Work', src: 'companies/homi_work.png' },
+  { name: 'Majazisho', src: 'companies/majazisho.png' },
+  { name: 'Zaminpak', src: 'companies/zaminpak.png' }
+];
+
+function buildLogoMarks(list) {
+  return list.map(logo =>
+    `<span class="logo-mark"><img src="${logo.src}" alt="${logo.name}" title="${logo.name}" decoding="async"></span>`
+  ).join('');
+}
+
+function initLogoRiverTrack(trackEl, logos, pxPerSecond, reverse) {
+  const container = trackEl?.parentElement;
+  if (!trackEl || !container) return;
+
+  const marksHtml = buildLogoMarks(logos);
+
+  function createSet(ariaHidden) {
+    const set = document.createElement('div');
+    set.className = 'logo-set';
+    if (ariaHidden) set.setAttribute('aria-hidden', 'true');
+    set.innerHTML = marksHtml;
+    return set;
+  }
+
+  trackEl.innerHTML = '';
+  trackEl.style.transform = 'translateX(0)';
+  trackEl.appendChild(createSet(false));
+
+  const containerWidth = container.getBoundingClientRect().width;
+  while (trackEl.scrollWidth < containerWidth * 2) {
+    trackEl.appendChild(createSet(true));
+  }
+  if (trackEl.querySelectorAll('.logo-set').length % 2 === 1) {
+    trackEl.appendChild(createSet(true));
+  }
+
+  const halfWidth = trackEl.scrollWidth / 2;
+  const duration = halfWidth / pxPerSecond;
+
+  trackEl.style.setProperty('--marquee-distance', `-${halfWidth}px`);
+  trackEl.style.setProperty('--marquee-duration', `${duration}s`);
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const direction = reverse ? ' reverse' : '';
+  trackEl.style.animation = reducedMotion
+    ? 'none'
+    : `marquee-scroll var(--marquee-duration) linear infinite${direction}`;
+}
+
+function waitForLogoImages(trackEl) {
+  const images = [...(trackEl?.querySelectorAll('img') || [])];
+  if (!images.length) return Promise.resolve();
+  return Promise.all(images.map(img => {
+    if (img.complete) return Promise.resolve();
+    return new Promise(resolve => {
+      img.addEventListener('load', resolve, { once: true });
+      img.addEventListener('error', resolve, { once: true });
+    });
+  }));
+}
+
+async function initLogoRiver() {
+  const isMobile = window.matchMedia('(max-width: 900px)').matches;
+  const trackA = document.getElementById('logoRiverTrackA');
+  const trackB = document.getElementById('logoRiverTrackB');
+
+  initLogoRiverTrack(trackA, logoRowA, isMobile ? 38 : 46, false);
+  initLogoRiverTrack(trackB, logoRowB, isMobile ? 32 : 38, true);
+
+  await Promise.all([waitForLogoImages(trackA), waitForLogoImages(trackB)]);
+  initLogoRiverTrack(trackA, logoRowA, isMobile ? 38 : 46, false);
+  initLogoRiverTrack(trackB, logoRowB, isMobile ? 32 : 38, true);
+}
+
+initLogoRiver();
+
 let marqueeResizeTimer;
 window.addEventListener('resize', () => {
   clearTimeout(marqueeResizeTimer);
-  marqueeResizeTimer = setTimeout(initMarquee, 200);
+  marqueeResizeTimer = setTimeout(() => {
+    initMarquee();
+    initLogoRiver();
+  }, 200);
 });
 
 // Hero orbit — gentle parallax on scroll
@@ -207,22 +313,6 @@ window.addEventListener('scroll', () => {
     orbitTicking = true;
   }
 }, { passive: true });
-
-// Project filter
-const filterButtons = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
-filterButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterButtons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.dataset.filter;
-    projectCards.forEach(card => {
-      const categories = card.dataset.category || '';
-      const show = filter === 'all' || categories.split(' ').includes(filter);
-      card.classList.toggle('hidden-card', !show);
-    });
-  });
-});
 
 const profileImg = document.querySelector('.profile-frame img');
 if (profileImg && profileImg.src.includes('your-image-url-here')) {
@@ -249,12 +339,12 @@ if (mobileMq.matches && themeColorMeta) {
   const sectionColors = {
     hero: '#f5f2ec',
     about: '#f5f2ec',
-    skills: '#ede9e0',
     projects: '#f5f2ec',
+    skills: '#ede9e0',
     experience: '#ede9e0',
     contact: '#f5f2ec'
   };
-  const colorSections = ['hero', 'about', 'skills', 'projects', 'experience', 'contact'];
+  const colorSections = ['hero', 'about', 'projects', 'skills', 'experience', 'contact'];
   const colorObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting && themeColorMeta) {

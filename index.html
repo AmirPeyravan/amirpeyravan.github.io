@@ -107,21 +107,25 @@
   <ul class="nav-links">
     <li class="nav-resume-item"><button type="button" class="nav-resume-btn" id="resumeBtn" aria-haspopup="dialog">Get Resume</button></li>
     <li><a href="#about" data-nav>About</a></li>
-    <li><a href="#skills" data-nav>Skills</a></li>
     <li><a href="#projects" data-nav>Projects</a></li>
+    <li><a href="#skills" data-nav>Skills</a></li>
     <li><a href="#experience" data-nav>Experience</a></li>
     <li><a href="#contact" data-nav>Contact</a></li>
   </ul>
   <button class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
-    <span></span><span></span><span></span>
+    <span class="hamburger-box" aria-hidden="true">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </span>
   </button>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
   <button type="button" class="mobile-resume-btn" id="mobileResumeBtn" aria-haspopup="dialog">Get Resume</button>
   <a href="#about" data-nav>About</a>
-  <a href="#skills" data-nav>Skills</a>
   <a href="#projects" data-nav>Projects</a>
+  <a href="#skills" data-nav>Skills</a>
   <a href="#experience" data-nav>Experience</a>
   <a href="#contact" data-nav>Contact</a>
 </div>
@@ -244,6 +248,18 @@
   </div>
 </section>
 
+<section id="projects" class="cine-section">
+  <div class="section-label reveal">Projects</div>
+  <div class="logo-river reveal" role="img" aria-label="Project and client brands">
+    <div class="logo-river-row" data-logo-row="a">
+      <div class="logo-river-track" id="logoRiverTrackA"></div>
+    </div>
+    <div class="logo-river-row logo-river-row--reverse" data-logo-row="b">
+      <div class="logo-river-track" id="logoRiverTrackB"></div>
+    </div>
+  </div>
+</section>
+
 <section id="skills" class="cine-section">
   <div class="section-label reveal">Skills</div>
   <div class="skills-grid">
@@ -311,260 +327,6 @@
         <span class="tag">24/7 production support</span>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="projects" class="cine-section">
-  <div class="section-label reveal">Projects</div>
-  <div class="projects-filter reveal">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="marketplace">Marketplace</button>
-    <button class="filter-btn" data-filter="enterprise">Enterprise / Gov</button>
-    <button class="filter-btn" data-filter="ott">OTT / Media</button>
-    <button class="filter-btn" data-filter="founder">Founder</button>
-  </div>
-  <div class="projects-grid" id="projectsGrid">
-
-    <div class="project-card reveal reveal-delay-1" data-category="founder enterprise">
-      <div class="project-top">
-        <div class="project-num">
-          <div class="project-title">Nexavio</div>
-        </div>
-        <span class="project-kind">Founder / CEO</span>
-      </div>
-      <p class="project-desc">The software company I founded and run. I own product architecture, client delivery, and technical direction — every client project on this list that I built independently runs through Nexavio's process and infrastructure.</p>
-      <div class="project-stack">
-        <span class="tag">PHP</span>
-        <span class="tag">Laravel</span>
-        <span class="tag">Linux</span>
-        <span class="tag">CI/CD</span>
-      </div>
-      <a href="https://nexavio.ir" target="_blank" rel="noopener" class="project-link">nexavio.ir →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-2" data-category="marketplace">
-      <div class="project-top">
-        <div class="project-num">
-          <div class="project-title">Aloomelk</div>
-        </div>
-        <span class="project-kind">Real Estate</span>
-      </div>
-      <p class="project-desc">Real-estate listing and marketplace platform. Backend architecture for property listings, search/filtering, and user-facing marketplace flows built on a Laravel REST API.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">REST API</span>
-        <span class="tag">MySQL</span>
-      </div>
-      <a href="https://aloomelk.ir" target="_blank" rel="noopener" class="project-link">aloomelk.ir →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-3" data-category="enterprise">
-      <div class="project-top">
-        <div class="project-num">
-          <div class="project-title">Hominex</div>
-        </div>
-        <span class="project-kind">API &amp; Automation</span>
-      </div>
-      <p class="project-desc">API-driven platform focused on process automation and cross-system integration. Responsible for backend architecture and connecting automated workflows across the application layer.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">REST API</span>
-        <span class="tag">MySQL</span>
-      </div>
-      <a href="https://hominex.ir" target="_blank" rel="noopener" class="project-link">hominex.ir →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-1" data-category="enterprise">
-      <div class="project-num">
-        <div class="project-top">
-          <div>
-            <div class="project-title">Homi Work</div>
-          </div>
-          <span class="project-kind">Internal Systems</span>
-        </div>
-      </div>
-      <p class="project-desc">Internal organizational management system for coordinating in-house operations and workflows — a companion platform to Hominex's automation stack.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">REST API</span>
-        <span class="tag">MySQL</span>
-      </div>
-      <a href="https://homi.api-hominex.ir" target="_blank" rel="noopener" class="project-link">homi.api-hominex.ir →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-2" data-category="marketplace">
-      <div class="project-top">
-        <div>
-          <div class="project-title">Bazargani Ahmadian</div>
-        </div>
-        <span class="project-kind">Commerce</span>
-      </div>
-      <p class="project-desc">Trading and commerce platform for an import/export business. Backend implementation covering catalog structure, order handling, and admin operations.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">HTML/CSS</span>
-      </div>
-      <a href="https://bazargani-ahmadian.com" target="_blank" rel="noopener" class="project-link">bazargani-ahmadian.com →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-3" data-category="marketplace">
-      <div class="project-top">
-        <div>
-          <div class="project-title">Mother Pharmacy</div>
-        </div>
-        <span class="project-kind">Healthcare Retail</span>
-      </div>
-      <p class="project-desc">Online pharmacy platform. Focused on reliable inventory-backed ordering, clean information architecture, and stable delivery for a healthcare-facing audience.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">REST API</span>
-      </div>
-      <a href="https://mother-pharmacy.com" target="_blank" rel="noopener" class="project-link">mother-pharmacy.com →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-1" data-category="enterprise">
-      <div class="project-top">
-        <div>
-          <div class="project-title">Parnian Data</div>
-        </div>
-        <span class="project-kind">Employer · Contract work</span>
-      </div>
-      <p class="project-desc">Full stack development work delivered as an employee of Parnian Data — included for context on scope and stack; the codebase and IP belong to the company, not to me independently.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">PHP</span>
-        <span class="tag">MySQL</span>
-      </div>
-      <a href="https://parniandata.ir" target="_blank" rel="noopener" class="project-link">parniandata.ir →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-2" data-category="marketplace">
-      <div class="project-top">
-        <div>
-          <div class="project-title">Ahoora Gallery</div>
-        </div>
-        <span class="project-kind">E-commerce</span>
-      </div>
-      <p class="project-desc">Product gallery and e-commerce platform. Backend logic for product catalogs, media-heavy listings, and storefront delivery.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">HTML/CSS</span>
-      </div>
-      <a href="https://ahoora-gallery.ir" target="_blank" rel="noopener" class="project-link">ahoora-gallery.ir →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-3" data-category="marketplace">
-      <div class="project-top">
-        <div>
-          <div class="project-title">Khodroonet</div>
-        </div>
-        <span class="project-kind">Automotive Marketplace</span>
-      </div>
-      <p class="project-desc">Automotive listings and marketplace platform. Backend work covering listing management, search, and user-facing marketplace mechanics.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">REST API</span>
-        <span class="tag">MySQL</span>
-      </div>
-      <a href="https://khodroonet.ir" target="_blank" rel="noopener" class="project-link">khodroonet.ir →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-1" data-category="enterprise">
-      <div class="project-top">
-        <div>
-          <div class="project-title">Iracode</div>
-        </div>
-        <span class="project-kind">Employer · Contract work</span>
-      </div>
-      <p class="project-desc">Laravel backend development delivered under contract for Iracode. Included for scope and stack context; codebase and IP belong to the company.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">PHP</span>
-      </div>
-      <a href="https://iracode.com" target="_blank" rel="noopener" class="project-link">iracode.com →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-2" data-category="enterprise">
-      <div class="project-top">
-        <div>
-          <div class="project-title">ASDP Co</div>
-        </div>
-        <span class="project-kind">Employer · Contract work</span>
-      </div>
-      <p class="project-desc">Backend engineering work delivered under contract for ASDP Co. Included for scope and stack context; codebase and IP belong to the company.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">PHP</span>
-      </div>
-      <a href="https://asdpco.ir" target="_blank" rel="noopener" class="project-link">asdpco.ir →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-3" data-category="enterprise">
-      <div class="project-top">
-        <div>
-          <div class="project-title">Islamic Azad University</div>
-        </div>
-        <span class="project-kind">National Institution</span>
-      </div>
-      <p class="project-desc">Development and integration work delivered in collaboration with Islamic Azad University's technical systems — one of the largest university networks in Iran.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">REST API</span>
-      </div>
-      <a href="https://iau.ir/fa" target="_blank" rel="noopener" class="project-link">iau.ir →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-1" data-category="ott">
-      <div class="project-top">
-        <div>
-          <div class="project-title">Moviesho</div>
-        </div>
-        <span class="project-kind">OTT Platform</span>
-      </div>
-      <p class="project-desc">Video-on-demand streaming platform. Backend work supporting content delivery, catalog structure, and platform-scale API needs typical of an OTT service.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">REST API</span>
-        <span class="tag">MySQL</span>
-      </div>
-      <a href="https://www.moviesho.com" target="_blank" rel="noopener" class="project-link">moviesho.com →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-2" data-category="marketplace">
-      <div class="project-top">
-        <div>
-          <div class="project-title">Sazkala</div>
-        </div>
-        <span class="project-kind">B2B Marketplace</span>
-      </div>
-      <p class="project-desc">B2B goods marketplace platform. Backend architecture for vendor/product management and transactional marketplace flows.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">REST API</span>
-        <span class="tag">MySQL</span>
-      </div>
-      <a href="https://sazkala.com" target="_blank" rel="noopener" class="project-link">sazkala.com →</a>
-    </div>
-
-    <div class="project-card reveal reveal-delay-3" data-category="enterprise">
-      <div class="project-top">
-        <div>
-          <div class="project-title">Tehran Municipality — District 1</div>
-        </div>
-        <span class="project-kind">Government</span>
-      </div>
-      <p class="project-desc">Public-sector web portal for Tehran's District 1 municipal administration. Backend implementation for a government-facing service handling citizen-facing information and internal data management.</p>
-      <div class="project-stack">
-        <span class="tag">Laravel</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">HTML/CSS</span>
-      </div>
-      <a href="https://region1.tehran.ir" target="_blank" rel="noopener" class="project-link">region1.tehran.ir →</a>
-    </div>
-
   </div>
 </section>
 
