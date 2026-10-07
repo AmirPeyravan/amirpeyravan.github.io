@@ -250,112 +250,11 @@ function initMarquee() {
 
 initMarquee();
 
-// Project logo river — two counter-scrolling rows, bare logos, no links
-const logoRowA = [
-  { name: 'Nexavio', src: 'companies/nexavio.png' },
-  { name: 'Aloomelk', src: 'companies/aloomelk.svg' },
-  { name: 'Moviesho', src: 'companies/moviesho.png' },
-  { name: 'Khodroonet', src: 'companies/khodroonet.png' },
-  { name: 'ASDP Co', src: 'companies/asdpco.png' },
-  { name: 'Mother Pharmacy', src: 'companies/mother-pharmacy.svg' },
-  { name: 'Sazkala', src: 'companies/sazkala.png' },
-  { name: 'Karinja', src: 'companies/karinja.png' },
-  { name: 'RCS Iran', src: 'companies/rcs_iran.png' },
-  { name: 'Next Hour', src: 'companies/next-hour.png' },
-  { name: 'Fars Developers', src: 'companies/farsdevelopers.png' }
-];
-
-const logoRowB = [
-  { name: 'Hominex', src: 'companies/hominex.webp' },
-  { name: 'Parnian Data', src: 'companies/parniandata.png' },
-  { name: 'Iracode', src: 'companies/iracode.png' },
-  { name: 'Ahoora Gallery', src: 'companies/ahoora-gallery.png' },
-  { name: 'Bazargani Ahmadian', src: 'companies/bazargani-ahmadian.png' },
-  { name: 'Islamic Azad University', src: 'companies/iau_ir.webp' },
-  { name: 'Tehran Municipality District 1', src: 'companies/region1.tehran.svg' },
-  { name: 'Homi Work', src: 'companies/homi_work.png' },
-  { name: 'Majazisho', src: 'companies/majazisho.png' },
-  { name: 'Zaminpak', src: 'companies/zaminpak.png' }
-];
-
-function buildLogoMarks(list) {
-  return list.map(logo =>
-    `<span class="logo-mark"><img src="${logo.src}" alt="${logo.name}" title="${logo.name}" decoding="async"></span>`
-  ).join('');
-}
-
-function initLogoRiverTrack(trackEl, logos, pxPerSecond, reverse) {
-  const container = trackEl?.parentElement;
-  if (!trackEl || !container) return;
-
-  const marksHtml = buildLogoMarks(logos);
-
-  function createSet(ariaHidden) {
-    const set = document.createElement('div');
-    set.className = 'logo-set';
-    if (ariaHidden) set.setAttribute('aria-hidden', 'true');
-    set.innerHTML = marksHtml;
-    return set;
-  }
-
-  trackEl.innerHTML = '';
-  trackEl.style.transform = 'translateX(0)';
-  trackEl.appendChild(createSet(false));
-
-  const containerWidth = container.getBoundingClientRect().width;
-  while (trackEl.scrollWidth < containerWidth * 2) {
-    trackEl.appendChild(createSet(true));
-  }
-  if (trackEl.querySelectorAll('.logo-set').length % 2 === 1) {
-    trackEl.appendChild(createSet(true));
-  }
-
-  const halfWidth = trackEl.scrollWidth / 2;
-  const duration = halfWidth / pxPerSecond;
-
-  trackEl.style.setProperty('--marquee-distance', `-${halfWidth}px`);
-  trackEl.style.setProperty('--marquee-duration', `${duration}s`);
-
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const direction = reverse ? ' reverse' : '';
-  trackEl.style.animation = reducedMotion
-    ? 'none'
-    : `marquee-scroll var(--marquee-duration) linear infinite${direction}`;
-}
-
-function waitForLogoImages(trackEl) {
-  const images = [...(trackEl?.querySelectorAll('img') || [])];
-  if (!images.length) return Promise.resolve();
-  return Promise.all(images.map(img => {
-    if (img.complete) return Promise.resolve();
-    return new Promise(resolve => {
-      img.addEventListener('load', resolve, { once: true });
-      img.addEventListener('error', resolve, { once: true });
-    });
-  }));
-}
-
-async function initLogoRiver() {
-  const isMobile = window.matchMedia('(max-width: 900px)').matches;
-  const trackA = document.getElementById('logoRiverTrackA');
-  const trackB = document.getElementById('logoRiverTrackB');
-
-  initLogoRiverTrack(trackA, logoRowA, isMobile ? 38 : 46, false);
-  initLogoRiverTrack(trackB, logoRowB, isMobile ? 32 : 38, true);
-
-  await Promise.all([waitForLogoImages(trackA), waitForLogoImages(trackB)]);
-  initLogoRiverTrack(trackA, logoRowA, isMobile ? 38 : 46, false);
-  initLogoRiverTrack(trackB, logoRowB, isMobile ? 32 : 38, true);
-}
-
-initLogoRiver();
-
 let marqueeResizeTimer;
 window.addEventListener('resize', () => {
   clearTimeout(marqueeResizeTimer);
   marqueeResizeTimer = setTimeout(() => {
     initMarquee();
-    initLogoRiver();
   }, 200);
 });
 

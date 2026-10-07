@@ -696,70 +696,109 @@
 
   #projects { border-top: 1px solid var(--rule); }
 
-  /* Logo river — bare marks, no plates (same language as tech marquee) */
-  .logo-river {
+  /* Companies / Collaborations Grid */
+  .companies-grid {
     margin-top: calc(var(--gap) * 6);
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: calc(var(--gap) * 3) calc(var(--gap) * 2);
+    justify-items: center;
+    align-items: start;
+  }
+
+  .company-item {
     display: flex;
     flex-direction: column;
-    gap: calc(var(--gap) * 4);
-  }
-
-  .logo-river-row {
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
-  }
-
-  .logo-river:hover .logo-river-track,
-  .logo-river:focus-within .logo-river-track {
-    animation-play-state: paused;
-  }
-
-  .logo-river-track {
-    display: flex;
     align-items: center;
-    width: max-content;
-    will-change: transform;
-    animation: marquee-scroll var(--marquee-duration, 45s) linear infinite;
+    text-align: center;
+    width: 100%;
+    padding: calc(var(--gap) * 1.5) calc(var(--gap) * 1);
+    border-radius: 6px;
+    transition: transform 0.22s ease, background-color 0.22s ease;
+    cursor: default;
   }
 
-  .logo-river-row--reverse .logo-river-track {
-    animation-direction: reverse;
+  .company-item:hover {
+    transform: translateY(-2px);
+    background-color: var(--paper-warm);
   }
 
-  .logo-set {
-    display: flex;
-    align-items: center;
-    gap: calc(var(--gap) * 5);
-    flex-shrink: 0;
-    padding-right: calc(var(--gap) * 5);
-  }
-
-  .logo-mark {
-    flex-shrink: 0;
+  .company-logo {
+    width: 52px;
     height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: calc(var(--gap) * 1.25);
+    flex-shrink: 0;
   }
 
-  .logo-mark img {
-    height: 100%;
+  .company-logo img {
+    max-width: 48px;
+    max-height: 48px;
     width: auto;
-    max-width: 160px;
+    height: auto;
     object-fit: contain;
     object-position: center;
     display: block;
     background: transparent;
-    transition: transform 0.25s ease;
+    transition: transform 0.22s ease;
   }
 
-  .logo-mark:hover img {
-    transform: translateY(-2px) scale(1.05);
+  .company-item:hover .company-logo img {
+    transform: scale(1.08);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .logo-river-track { animation: none; }
+  .company-name {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    line-height: 1.35;
+    color: var(--text-secondary);
+    letter-spacing: 0.01em;
+    transition: color 0.2s ease;
+    word-break: normal;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+
+  .company-item:hover .company-name {
+    color: var(--ink);
+  }
+
+  @media (max-width: 1024px) {
+    .companies-grid {
+      grid-template-columns: repeat(5, 1fr);
+      gap: calc(var(--gap) * 3) calc(var(--gap) * 2);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .companies-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: calc(var(--gap) * 2.5) calc(var(--gap) * 1.5);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .companies-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: calc(var(--gap) * 2) calc(var(--gap) * 1);
+    }
+
+    .company-logo {
+      width: 44px;
+      height: 44px;
+      margin-bottom: calc(var(--gap) * 1);
+    }
+
+    .company-logo img {
+      max-width: 40px;
+      max-height: 40px;
+    }
+
+    .company-name {
+      font-size: 0.68rem;
+    }
   }
 
   #experience { border-top: 1px solid var(--rule); }
@@ -1232,20 +1271,6 @@
     }
 
     footer { flex-direction: column; gap: 12px; text-align: center; }
-
-    .logo-river {
-      margin-top: calc(var(--gap) * 5);
-      gap: calc(var(--gap) * 3);
-    }
-
-    .logo-set {
-      gap: calc(var(--gap) * 4);
-      padding-right: calc(var(--gap) * 4);
-    }
-
-    .logo-mark { height: 40px; }
-
-    .logo-mark img { max-width: 128px; }
   }
 
   @media (max-width: 900px) and (prefers-reduced-motion: reduce) {
